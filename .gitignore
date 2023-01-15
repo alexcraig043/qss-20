@@ -68,6 +68,10 @@ instance/
 # Scrapy stuff:
 .scrapy
 
+# Large data:
+*.csv
+*.pkl
+
 # Sphinx documentation
 docs/_build/
 
