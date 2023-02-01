@@ -15463,12 +15463,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sd_naics_inner</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">sd_df</span><span class="p">,</span> <span class="n">naics_df</span><span class="p">,</span> <span class="n">left_on</span> <span class="o">=</span> <span class="s2">&quot;naics_code&quot;</span><span class="p">,</span> <span class="n">right_on</span> <span class="o">=</span> <span class="s2">&quot;naics&quot;</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s2">&quot;inner&quot;</span><span class="p">)</span>
-
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sd_naics_inner</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">sd_df</span><span class="p">,</span> <span class="n">naics_df</span><span class="p">,</span> <span class="n">left_on</span> <span class="o">=</span> <span class="s2">&quot;naics_code&quot;</span><span class="p">,</span> <span class="n">right_on</span> <span class="o">=</span> <span class="s2">&quot;naics&quot;</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s2">&quot;inner&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">&quot;account_key&quot;</span><span class="p">)</span>
 <span class="sa">f</span><span class="s2">&quot;in our original data, we had </span><span class="si">{</span><span class="n">sd_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> rows, but now have </span><span class="si">{</span><span class="n">sd_naics_inner</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> rows after merging with naics_df&quot;</span>
 
-<span class="n">lost_naics</span> <span class="o">=</span> <span class="n">sd_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">sd_df</span><span class="p">[</span><span class="s2">&quot;account_key&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">sd_naics_inner</span><span class="p">[</span><span class="s2">&quot;account_key&quot;</span><span class="p">]),</span>
-                     <span class="p">[</span><span class="s1">&#39;naics_code&#39;</span><span class="p">,</span> <span class="s1">&#39;naics_description&#39;</span><span class="p">,</span> <span class="s1">&#39;naics_nchar&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="n">lost_naics</span> <span class="o">=</span> <span class="n">sd_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">sd_df</span><span class="p">[</span><span class="s2">&quot;account_key&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">sd_naics_inner</span><span class="p">[</span><span class="s2">&quot;account_key&quot;</span><span class="p">])]</span>
 <span class="n">lost_naics</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 <span class="n">lost_naics</span><span class="p">[</span><span class="s2">&quot;naics_nchar&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
@@ -15492,7 +15490,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&#39;in our original data, we had 353 rows, but now have 52 rows after merging with naics_df&#39;</pre>
+<pre>&#39;in our original data, we had 353 rows, but now have 35 rows after merging with naics_df&#39;</pre>
 </div>
 
 </div>
@@ -15521,6 +15519,9 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>account_key</th>
+      <th>dba_name</th>
+      <th>council_district</th>
       <th>naics_code</th>
       <th>naics_description</th>
       <th>naics_nchar</th>
@@ -15529,33 +15530,48 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
   <tbody>
     <tr>
       <th>1</th>
+      <td>1974011093</td>
+      <td>HECHT SOLBERG ROBINSON GOLDBERG &amp; BAGLEY LLP</td>
+      <td>cd_3</td>
+      <td>5411</td>
+      <td>LEGAL SERVICES</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1978042092</td>
+      <td>THORSNES BARTOLOTTA MCGUIRE LLP</td>
+      <td>cd_3</td>
       <td>5411</td>
       <td>LEGAL SERVICES</td>
       <td>4</td>
     </tr>
     <tr>
       <th>4</th>
+      <td>1979046817</td>
+      <td>KORENIC &amp; WOJDOWSKI LLP</td>
+      <td>cd_7</td>
       <td>5412</td>
       <td>ACCOUNTING/TAX PREP/BOOKKEEP/PAYROLL SERVICES</td>
       <td>4</td>
     </tr>
     <tr>
-      <th>12</th>
-      <td>7221</td>
-      <td>FULL-SERVICE RESTAURANTS</td>
+      <th>5</th>
+      <td>1979053082</td>
+      <td>GRIMM VRANJES GREER STEPHAN &amp; BRIDGMAN LLP</td>
+      <td>cd_3</td>
+      <td>5411</td>
+      <td>LEGAL SERVICES</td>
       <td>4</td>
     </tr>
     <tr>
-      <th>13</th>
-      <td>48841</td>
-      <td>MOTOR VEHICLE TOWING</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>54111</td>
-      <td>OFFICES OF LAWYERS</td>
-      <td>5</td>
+      <th>6</th>
+      <td>1981000840</td>
+      <td>BENINK &amp; SLAVENS LLP</td>
+      <td>cd_7</td>
+      <td>5411</td>
+      <td>LEGAL SERVICES</td>
+      <td>4</td>
     </tr>
   </tbody>
 </table>
@@ -15571,11 +15587,11 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>5    56
-4    26
-3    16
-6     9
-2     7
+<pre>5    150
+4     89
+3     42
+2     23
+6     14
 Name: naics_nchar, dtype: int64</pre>
 </div>
 
@@ -15611,7 +15627,6 @@ Name: naics_nchar, dtype: int64</pre>
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">sd_naics_left</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">sd_df</span><span class="p">,</span> <span class="n">naics_df</span><span class="p">,</span> <span class="n">left_on</span> <span class="o">=</span> <span class="s2">&quot;naics_code&quot;</span><span class="p">,</span> <span class="n">right_on</span> <span class="o">=</span> <span class="s2">&quot;naics&quot;</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;_sd&quot;</span><span class="p">,</span> <span class="s2">&quot;_census&quot;</span><span class="p">),</span> <span class="n">indicator</span> <span class="o">=</span> <span class="s2">&quot;merged_with_naics&quot;</span><span class="p">)</span>
 <span class="n">sd_naics_left</span><span class="p">[</span><span class="s2">&quot;merged_with_naics&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
 <span class="s1">&#39;A sample of five rows that did not merge with naics_df:&#39;</span>
 <span class="n">sd_naics_left</span><span class="p">[</span><span class="n">sd_naics_left</span><span class="p">[</span><span class="s2">&quot;merged_with_naics&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;left_only&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
@@ -15785,7 +15800,7 @@ Name: merged_with_naics, dtype: float64</pre>
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sd_naics_left</span><span class="p">[</span><span class="s2">&quot;is_lost&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sd_naics_left</span><span class="p">[</span><span class="s2">&quot;merged_with_naics&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;left_only&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sd_naics_left</span><span class="p">[</span><span class="s2">&quot;is_lost&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">sd_naics_left</span><span class="p">[</span><span class="s2">&quot;merged_with_naics&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;left_only&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 <span class="n">sd_naics_left</span><span class="p">[</span><span class="s2">&quot;is_lost&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 
 <span class="n">sd_naics_left</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;council_district&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s2">&quot;is_lost&quot;</span><span class="p">:</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="s2">&quot;account_key&quot;</span><span class="p">:</span> <span class="s2">&quot;nunique&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;is_lost&quot;</span><span class="p">:</span> <span class="s2">&quot;pct_not_lost&quot;</span><span class="p">,</span> <span class="s2">&quot;account_key&quot;</span><span class="p">:</span> <span class="s2">&quot;num_account_key&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
@@ -15946,12 +15961,11 @@ Name: is_lost, dtype: int64</pre>
 <span class="n">sd_naics_left_padded</span><span class="p">[</span><span class="s2">&quot;merged_with_naics&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">lost_account_keys</span> <span class="o">=</span> <span class="n">sd_naics_left</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sd_naics_left</span><span class="p">[</span><span class="s2">&quot;merged_with_naics&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;left_only&quot;</span><span class="p">,</span> <span class="s2">&quot;account_key&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-<span class="s2">&quot;Counts of if a new matches:&quot;</span>
 <span class="n">sd_naics_left_padded</span><span class="p">[</span><span class="s2">&quot;is_new_match&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">sd_naics_left_padded</span><span class="p">[</span><span class="s2">&quot;account_key&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">lost_account_keys</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">sd_naics_left_padded</span><span class="p">[</span><span class="s2">&quot;merged_with_naics&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;both&quot;</span><span class="p">),</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="s2">&quot;Counts of if a new match:&quot;</span>
 <span class="n">sd_naics_left_padded</span><span class="p">[</span><span class="s2">&quot;is_new_match&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 
-<span class="n">sd_naics_left_padded</span><span class="p">[</span><span class="n">sd_naics_left_padded</span><span class="p">[</span><span class="s2">&quot;is_new_match&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">][[</span><span class="s2">&quot;dba_name&quot;</span><span class="p">,</span>
-               <span class="s2">&quot;naics_description_sd&quot;</span><span class="p">,</span> <span class="s2">&quot;naics_description_census&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sd_naics_left_padded</span><span class="p">[</span><span class="n">sd_naics_left_padded</span><span class="p">[</span><span class="s2">&quot;is_new_match&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="s2">&quot;By adding the padding, we were able to match 185 more accounts to the census data, so the padding seems to be correct.&quot;</span>
 </pre></div>
@@ -16051,7 +16065,7 @@ Name: merged_with_naics, dtype: float64</pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&#39;Counts of if a new matches:&#39;</pre>
+<pre>&#39;Counts of if a new match:&#39;</pre>
 </div>
 
 </div>
@@ -16094,41 +16108,89 @@ Name: is_new_match, dtype: int64</pre>
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>account_key</th>
       <th>dba_name</th>
+      <th>council_district</th>
+      <th>naics_code</th>
       <th>naics_description_sd</th>
+      <th>naics_nchar</th>
+      <th>naics_padded</th>
+      <th>naics</th>
       <th>naics_description_census</th>
+      <th>merged_with_naics</th>
+      <th>is_new_match</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>166</th>
+      <td>2008041680</td>
       <td>AGUIRRE &amp; SEVERSON LLP</td>
+      <td>cd_3</td>
+      <td>54111</td>
       <td>OFFICES OF LAWYERS</td>
+      <td>5</td>
+      <td>541110</td>
+      <td>541110</td>
       <td>Offices of Lawyers</td>
+      <td>both</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>419</th>
+      <td>2021002956</td>
       <td>THRIVE AFFORDABLE VET CARE</td>
+      <td>cd_5</td>
+      <td>54194</td>
       <td>VETERINARY SERVICES</td>
+      <td>5</td>
+      <td>541940</td>
+      <td>541940</td>
       <td>Veterinary Services</td>
+      <td>both</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>136</th>
+      <td>2007017624</td>
       <td>STRAZZERI MANCINI LLP</td>
+      <td>cd_6</td>
+      <td>54111</td>
       <td>OFFICES OF LAWYERS</td>
+      <td>5</td>
+      <td>541110</td>
+      <td>541110</td>
       <td>Offices of Lawyers</td>
+      <td>both</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>350</th>
+      <td>2019025244</td>
       <td>WACHIC</td>
+      <td>cd_5</td>
+      <td>44819</td>
       <td>OTHER CLOTHING STORES</td>
+      <td>5</td>
+      <td>448190</td>
+      <td>448190</td>
       <td>Other Clothing Stores</td>
+      <td>both</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>375</th>
+      <td>2020007523</td>
       <td>ODAI AUTO SALES</td>
+      <td>cd_6</td>
+      <td>44112</td>
       <td>USED CAR DEALERS</td>
+      <td>5</td>
+      <td>441120</td>
+      <td>441120</td>
       <td>Used Car Dealers</td>
+      <td>both</td>
+      <td>True</td>
     </tr>
   </tbody>
 </table>
