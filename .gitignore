@@ -134,3 +134,6 @@ dmypy.json
 
 # DS temp file
 .DS_Store
+
+# Secret
+config.py
