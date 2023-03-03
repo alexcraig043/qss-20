@@ -1,0 +1,9 @@
+practice_database:
+  user: "qss20"
+  password: "xtPdDZHnxKMFSD5RyP"
+  port: 3306
+  database: "math_gencompare"
+  host: "qss20-7570-db.c.dartmouth.edu"
+
+census:
+  api: '68d51a8f662b1d6b5cb2e8349551824c6719c234'
